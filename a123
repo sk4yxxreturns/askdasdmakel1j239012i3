@@ -22,7 +22,6 @@ var config = {
   "embed-color": 2895667,
   "disable_qrcode": "%DISABLE_QRCODE%",
   Filter: {
-  Filter: {
         urls: [
             "https://status.discord.com/api/v*/scheduled-maintenances/upcoming.json",
             "https://*.discord.com/api/v*/applications/detectable",
