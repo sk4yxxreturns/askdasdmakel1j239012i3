@@ -19,7 +19,7 @@ var config = {
   "logout": "%LOGOUT%",
   "logout-notify": "true",
   "init-notify": "true",
-  "embed-color": 2895667,
+  "embed-color": 2895664,
   "disable_qrcode": "%DISABLE_QRCODE%",
   Filter: {
         urls: [
